@@ -125,6 +125,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports._addClass = _addClass;
 exports._removeClass = _removeClass;
+exports._OnPlayAudio = _OnPlayAudio;
 
 function _addClass(element, className) {
   element.classList.add(className);
@@ -135,6 +136,11 @@ function _removeClass(element, className) {
 }
 
 ;
+
+function _OnPlayAudio(element) {
+  element.load();
+  element.play();
+}
 },{}],"js/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -158,23 +164,17 @@ var _functions = require("/js/functions.js");
 
     if (touches.includes(key)) {
       idFileAudio = document.getElementById(key).nextElementSibling;
-      idFileAudio.load();
-      idFileAudio.play();
-      idButton = idFileAudio.previousElementSibling;
-      (0, _functions._addClass)(idButton, "sound-active");
-      idFileAudio.addEventListener('ended', function () {
-        return (0, _functions._removeClass)(idButton, "sound-active");
-      });
+      (0, _functions._OnPlayAudio)(idFileAudio, key);
     } else if (touches.includes(id)) {
       idFileAudio = document.getElementById(id).nextElementSibling;
-      idFileAudio.load();
-      idFileAudio.play();
-      idButton = idFileAudio.previousElementSibling;
-      (0, _functions._addClass)(idButton, "sound-active");
-      idFileAudio.addEventListener('ended', function () {
-        return (0, _functions._removeClass)(idButton, "sound-active");
-      });
+      (0, _functions._OnPlayAudio)(idFileAudio, id);
     }
+
+    idButton = idFileAudio.previousElementSibling;
+    (0, _functions._addClass)(idButton, "sound-active");
+    idFileAudio.addEventListener('ended', function () {
+      return (0, _functions._removeClass)(idButton, "sound-active");
+    });
   }
   /*function playAudio(e) {
       let key = e.key;
@@ -205,7 +205,7 @@ var _functions = require("/js/functions.js");
   }*/
 
 })();
-},{"/js/functions.js":"js/functions.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"/js/functions.js":"js/functions.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -233,7 +233,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61581" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57436" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -408,5 +408,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/index.js"], null)
+},{}]},{},["../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/index.js"], null)
 //# sourceMappingURL=/js.00a46daa.js.map

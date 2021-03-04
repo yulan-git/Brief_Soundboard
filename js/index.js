@@ -1,4 +1,4 @@
-import {_addClass, _removeClass} from '/js/functions.js'; 
+import {_addClass, _removeClass, _OnPlayAudio} from '/js/functions.js'; 
 
 (function pressPlayAudio() {
     let idFileAudio;
@@ -19,23 +19,17 @@ import {_addClass, _removeClass} from '/js/functions.js';
 
         if (touches.includes(key)) {
             idFileAudio = document.getElementById(key).nextElementSibling;
-            idFileAudio.load();
-            idFileAudio.play();
+            _OnPlayAudio(idFileAudio, key);
 
-            idButton = idFileAudio.previousElementSibling;
-            _addClass(idButton, "sound-active");
-            
-            idFileAudio.addEventListener('ended', () =>_removeClass(idButton, "sound-active"));
-        } else if (touches.includes(id)){
+        } else if (touches.includes(id)) {
             idFileAudio = document.getElementById(id).nextElementSibling;
-            idFileAudio.load();
-            idFileAudio.play();
-
-            idButton = idFileAudio.previousElementSibling;
-            _addClass(idButton, "sound-active");
-            
-            idFileAudio.addEventListener('ended', () =>_removeClass(idButton, "sound-active"));
+            _OnPlayAudio(idFileAudio, id);
         }
+        
+        idButton = idFileAudio.previousElementSibling;
+        _addClass(idButton, "sound-active");
+        
+        idFileAudio.addEventListener('ended', () =>_removeClass(idButton, "sound-active"));
     }
     
     /*function playAudio(e) {
