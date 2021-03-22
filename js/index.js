@@ -1,66 +1,22 @@
-import {_addClass, _removeClass, _OnPlayAudio} from '/js/functions.js'; 
+import {_addClass, _removeClass, _OnPlayAudio, _playSound} from '/js/functions.js'; 
 
 (function pressPlayAudio() {
-    let idFileAudio;
-    let idButton;
-    let touches = ["a", "z", "e", "r", "t", "y", "u", "i", "o"];
     
+    document.addEventListener('click', playAudioOnClick);
     document.addEventListener('keydown', playAudio);
-    
-    let playButtons = document.querySelectorAll('.btn-container');
-    for (let i = 0; i < playButtons.length; i++) {
-        playButtons[i].addEventListener('click', playAudio);
-    }
-    
+
     function playAudio(e) {
         let key = e.key;
-        let target = e.target;
-        let id = target.getAttribute("id");
-
-        if (touches.includes(key)) {
-            idFileAudio = document.getElementById(key).nextElementSibling;
-            _OnPlayAudio(idFileAudio, key);
-
-        } else if (touches.includes(id)) {
-            idFileAudio = document.getElementById(id).nextElementSibling;
-            _OnPlayAudio(idFileAudio, id);
-        }
+        let audio = document.getElementById(key);
+        let button = audio.previousElementSibling;
+        _playSound(audio, button);
         
-        idButton = idFileAudio.previousElementSibling;
-        _addClass(idButton, "sound-active");
-        
-        idFileAudio.addEventListener('ended', () =>_removeClass(idButton, "sound-active"));
-    }
-    
-    /*function playAudio(e) {
-        let key = e.key;
-        if (touches.includes(key)) {
-            idFileAudio = document.getElementById(key).nextElementSibling;
-            console.log(idFileAudio);
-            idFileAudio.load();
-            idFileAudio.play();
-
-            idButton = idFileAudio.previousElementSibling;
-            _addClass(idButton, "sound-active");
-            
-            idFileAudio.addEventListener('ended', () =>_removeClass(idButton, "sound-active"));
-        }
     }
 
     function playAudioOnClick(e) {
-        let target = e.target;
-        let id = target.getAttribute("id");
-        console.log(id);
-        if (touches.includes(id)) {
-            idFileAudio = document.getElementById(id).nextElementSibling;
-            idFileAudio.load();
-            idFileAudio.play();
-
-            idButton = idFileAudio.previousElementSibling;
-            _addClass(idButton, "sound-active");
-            
-            idFileAudio.addEventListener('ended', () =>_removeClass(idButton, "sound-active"));
-        }
-    }*/
+        let button = e.target
+        let audio = e.target.nextElementSibling;
+        _playSound(audio, button);
+    }
 
 })();  

@@ -7,9 +7,15 @@ function _removeClass(element, className) {
 };
 
 function _OnPlayAudio(element) {
-    element.load();
+    element.currentTime = 0;
     element.play();
 }
 
-export {_addClass, _removeClass, _OnPlayAudio} ;
+function _playSound(soundToplay, buttonToPress) {
+     _OnPlayAudio(soundToplay);
+    _addClass(buttonToPress, "sound-active");
+    soundToplay.addEventListener('ended', () =>_removeClass(buttonToPress, "sound-active"));
+}
+
+export {_addClass, _removeClass, _OnPlayAudio, _playSound} ;
 

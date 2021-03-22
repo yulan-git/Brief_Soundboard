@@ -126,6 +126,7 @@ Object.defineProperty(exports, "__esModule", {
 exports._addClass = _addClass;
 exports._removeClass = _removeClass;
 exports._OnPlayAudio = _OnPlayAudio;
+exports._playSound = _playSound;
 
 function _addClass(element, className) {
   element.classList.add(className);
@@ -138,8 +139,18 @@ function _removeClass(element, className) {
 ;
 
 function _OnPlayAudio(element) {
-  element.load();
+  element.currentTime = 0;
   element.play();
+}
+
+function _playSound(soundToplay, buttonToPress) {
+  _OnPlayAudio(soundToplay);
+
+  _addClass(buttonToPress, "sound-active");
+
+  soundToplay.addEventListener('ended', function () {
+    return _removeClass(buttonToPress, "sound-active");
+  });
 }
 },{}],"js/index.js":[function(require,module,exports) {
 "use strict";
@@ -147,63 +158,21 @@ function _OnPlayAudio(element) {
 var _functions = require("/js/functions.js");
 
 (function pressPlayAudio() {
-  var idFileAudio;
-  var idButton;
-  var touches = ["a", "z", "e", "r", "t", "y", "u", "i", "o"];
+  document.addEventListener('click', playAudioOnClick);
   document.addEventListener('keydown', playAudio);
-  var playButtons = document.querySelectorAll('.btn-container');
-
-  for (var i = 0; i < playButtons.length; i++) {
-    playButtons[i].addEventListener('click', playAudio);
-  }
 
   function playAudio(e) {
     var key = e.key;
-    var target = e.target;
-    var id = target.getAttribute("id");
-
-    if (touches.includes(key)) {
-      idFileAudio = document.getElementById(key).nextElementSibling;
-      (0, _functions._OnPlayAudio)(idFileAudio, key);
-    } else if (touches.includes(id)) {
-      idFileAudio = document.getElementById(id).nextElementSibling;
-      (0, _functions._OnPlayAudio)(idFileAudio, id);
-    }
-
-    idButton = idFileAudio.previousElementSibling;
-    (0, _functions._addClass)(idButton, "sound-active");
-    idFileAudio.addEventListener('ended', function () {
-      return (0, _functions._removeClass)(idButton, "sound-active");
-    });
+    var audio = document.getElementById(key);
+    var button = audio.previousElementSibling;
+    (0, _functions._playSound)(audio, button);
   }
-  /*function playAudio(e) {
-      let key = e.key;
-      if (touches.includes(key)) {
-          idFileAudio = document.getElementById(key).nextElementSibling;
-          console.log(idFileAudio);
-          idFileAudio.load();
-          idFileAudio.play();
-           idButton = idFileAudio.previousElementSibling;
-          _addClass(idButton, "sound-active");
-          
-          idFileAudio.addEventListener('ended', () =>_removeClass(idButton, "sound-active"));
-      }
-  }
-   function playAudioOnClick(e) {
-      let target = e.target;
-      let id = target.getAttribute("id");
-      console.log(id);
-      if (touches.includes(id)) {
-          idFileAudio = document.getElementById(id).nextElementSibling;
-          idFileAudio.load();
-          idFileAudio.play();
-           idButton = idFileAudio.previousElementSibling;
-          _addClass(idButton, "sound-active");
-          
-          idFileAudio.addEventListener('ended', () =>_removeClass(idButton, "sound-active"));
-      }
-  }*/
 
+  function playAudioOnClick(e) {
+    var button = e.target;
+    var audio = e.target.nextElementSibling;
+    (0, _functions._playSound)(audio, button);
+  }
 })();
 },{"/js/functions.js":"js/functions.js"}],"../../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -233,7 +202,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57436" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58988" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
