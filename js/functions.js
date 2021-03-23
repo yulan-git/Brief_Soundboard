@@ -12,7 +12,7 @@ function _OnPlayAudio(element) {
 }
 
 function _playSound(soundToplay, buttonToPress) {
-     _OnPlayAudio(soundToplay);
+    _OnPlayAudio(soundToplay);
     _addClass(buttonToPress, "sound-active");
     soundToplay.addEventListener('ended', () =>_removeClass(buttonToPress, "sound-active"));
 }
